@@ -255,11 +255,36 @@ h2{font-size:clamp(2.6rem,7vw,5.2rem);letter-spacing:-.02em}
   // theme toggle
   var root=document.documentElement,dark=matchMedia('(prefers-color-scheme: dark)').matches;
   document.getElementById('theme').addEventListener('click',function(){dark=!dark;root.setAttribute('data-theme',dark?'dark':'light')});
-  // contact form via mailto (no backend)
-  document.getElementById('f').addEventListener('submit',function(ev){ev.preventDefault();
-    var n=document.getElementById('n').value,e=document.getElementById('e').value,m=document.getElementById('m').value;
-    location.href='mailto:akxshh28@gmail.com?subject='+encodeURIComponent('Portfolio message from '+n)+'&body='+encodeURIComponent(m+'\n\nReply to: '+e);
-  });
+  // Contact form via EmailJS
+document.getElementById('f').addEventListener('submit', async function(ev) {
+    ev.preventDefault();
+
+    const btn = this.querySelector('button[type="submit"]');
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+        await emailjs.send('service_j7q6u49', 'template_bw9x2uw', {
+            name: document.getElementById('n').value,
+            email: document.getElementById('e').value,
+            message: document.getElementById('m').value
+        });
+
+        alert('Message sent successfully!');
+        this.reset();
+
+    } catch (error) {
+        console.error('EmailJS Error:', error);
+        alert('Message failed. Please try again.');
+        } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send message ↗';
+    }
+
+});
+
+// CLOSE THE MAIN FUNCTION
 })();
 </script>
 <script>(function(){
