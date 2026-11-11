@@ -298,5 +298,12 @@ fetch('https://api.github.com/users/'+USER).then(function(r){return r.json()}).t
  if(p)p.textContent='Loaded live from GitHub: '+u.public_repos+' public repositories and '+u.followers+' followers. Tap a segment or a name to see what\u2019s inside.'
 }).catch(function(){});
 })();</script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@5/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+    publicKey: "cRX49MjxFCGKUIMnD"
+});
+</script>
 </body>
 </html>
